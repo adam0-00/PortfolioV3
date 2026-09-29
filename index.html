@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio BTS SIO — Adam</title>
+  <meta name="description" content="Portfolio d'Adam, étudiant en 2e année de BTS SIO option SLAM : stages, parcours, veille technologique et projets." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.16.0/devicon.min.css" />
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --fg: #f1f5f9;
+      --soft: #cbd5e1;
+      --muted: #94a3b8;
+      --faint: #64748b;
+      --primary: #6366f1;
+      --accent: #22d3ee;
+      --violet: #a78bfa;
+      --font-body: "Inter", system-ui, sans-serif;
+      --font-display: "Space Grotesk", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(120px); }
+    .blob.b1 { width: 520px; height: 520px; top: -160px; left: -130px; background: rgba(99,102,241,.4); }
+    .blob.b2 { width: 560px; height: 560px; top: 33%; right: -160px; background: rgba(34,211,238,.3); }
+    .blob.b3 { width: 480px; height: 480px; bottom: 0; left: 33%; background: rgba(167,139,250,.3); }
+    .grid-bg {
+      position: absolute; inset: 0; opacity: .15;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 40px 48px; }
+
+    .glass {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+    }
+    .glass-strong {
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+    }
+    .glow { box-shadow: 0 0 60px -12px rgba(99,102,241,.55), 0 0 40px -18px rgba(34,211,238,.4); }
+    .ring-grad { background: linear-gradient(135deg, var(--primary), var(--accent), var(--violet)); color: var(--bg); }
+    .text-grad {
+      background-image: linear-gradient(90deg, #818cf8, #22d3ee, #a78bfa);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+    .mono { font-family: var(--font-mono); }
+    .display { font-family: var(--font-display); }
+
+    nav {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 16px 24px; border-radius: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 600; }
+    .logo { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; font-weight: 700; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 14px; font-weight: 500; color: var(--soft); }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-gh { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+    .nav-gh:hover { color: var(--accent); }
+    .btn-small { padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: background .2s; }
+    .btn-small:hover { background: rgba(255,255,255,.15); }
+
+    .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: center; margin-top: 64px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px;
+      border-radius: 999px; font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+      border-color: rgba(99,102,241,.3);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 50% { opacity: .4; } }
+    h1 { margin-top: 24px; font-family: var(--font-display); font-size: clamp(40px, 6vw, 60px); font-weight: 700; line-height: 1.05; letter-spacing: -.02em; }
+    .hero p.intro { margin-top: 24px; max-width: 440px; color: var(--soft); line-height: 1.7; }
+    .hero p.intro strong { color: var(--fg); font-weight: 600; }
+    .btn-row { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { padding: 12px 24px; border-radius: 12px; font-weight: 600; transition: opacity .2s, background .2s; }
+    .btn.primary:hover { opacity: .9; }
+    .btn.ghost { font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
+    .btn.ghost:hover { background: rgba(255,255,255,.15); }
+    .btn.ghost small { font-family: var(--font-mono); font-size: 10px; opacity: .5; }
+
+    .terminal { border-radius: 24px; padding: 24px; }
+    .term-head { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .lights { display: flex; gap: 6px; }
+    .lights span { width: 10px; height: 10px; border-radius: 50%; }
+    .lights span:nth-child(1) { background: rgba(251,113,133,.8); }
+    .lights span:nth-child(2) { background: rgba(251,191,36,.8); }
+    .lights span:nth-child(3) { background: rgba(52,211,153,.8); }
+    .term-body { margin-top: 16px; font-family: var(--font-mono); font-size: 14px; display: grid; gap: 8px; }
+    .term-body .cmd { color: var(--muted); }
+    .term-body .cmd span { color: var(--accent); }
+    .term-body .val { color: var(--fg); }
+    .term-body .val.v { color: var(--violet); }
+    .term-body .val.warn { color: #fcd34d; font-weight: 700; }
+    .lang-icons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .lang-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 8px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      font-family: var(--font-mono); font-size: 12px; color: var(--soft);
+    }
+    .lang-chip i { font-size: 16px; }
+
+    section { margin-top: 96px; }
+    .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+    .sec-head.border { justify-content: space-between; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .sec-head h2 { font-family: var(--font-display); font-size: 30px; font-weight: 700; letter-spacing: -.01em; }
+    .sec-head .line { flex: 1; height: 1px; background: rgba(255,255,255,.1); }
+    .sec-head .tag { font-family: var(--font-mono); font-size: 12px; color: var(--faint); }
+
+    .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .card { display: flex; flex-direction: column; border-radius: 24px; padding: 32px; transition: transform .3s, border-color .3s; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(34,211,238,.4); }
+    .card.wide { grid-column: span 2; }
+    .card-top { display: flex; justify-content: space-between; align-items: center; }
+    .card-top .when { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+    .card-top .when.accent { color: var(--accent); }
+    .badge { padding: 4px 8px; border-radius: 4px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; text-transform: uppercase; background: rgba(16,185,129,.1); color: #34d399; }
+    .card h3 { margin-top: 24px; font-family: var(--font-display); font-size: 24px; font-weight: 700; }
+    .card .sub { margin-top: 8px; color: var(--muted); }
+    .card .desc { margin-top: 16px; font-size: 14px; line-height: 1.7; color: var(--soft); }
+    .card ul.tasks { margin-top: 24px; padding-left: 20px; list-style: disc; font-size: 14px; line-height: 1.7; color: var(--soft); display: grid; gap: 8px; }
+    .tags { margin-top: auto; padding-top: 32px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags span { padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05); font-family: var(--font-mono); font-size: 10px; }
+    .ping { position: relative; display: inline-flex; width: 12px; height: 12px; }
+    .ping::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); opacity: .75; animation: ping 1.5s infinite; }
+    .ping::after { content: ""; position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+    @keyframes ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+
+    .timeline-box { border-radius: 16px; padding: 32px; }
+    .timeline { position: relative; padding-left: 24px; display: grid; gap: 32px; }
+    .timeline::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: rgba(255,255,255,.15); }
+    .step { position: relative; }
+    .step::before { content: ""; position: absolute; left: -22px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.25); }
+    .step.current::before { background: linear-gradient(135deg, var(--primary), var(--accent), var(--violet)); }
+    .step .date { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .step.current .date { color: var(--accent); }
+    .step h3 { margin-top: 4px; font-family: var(--font-display); font-weight: 600; }
+    .step p { font-size: 14px; color: var(--muted); }
+
+    .veille { border-radius: 16px; padding: 24px; }
+    .veille .cat { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+    .veille h3 { margin-top: 12px; font-family: var(--font-display); font-weight: 600; }
+    .veille p { margin-top: 8px; font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+    .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .box { border-radius: 16px; padding: 32px; }
+    .box.small { padding: 24px; }
+    .box-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .box-head h2 { font-family: var(--font-display); font-size: 24px; font-weight: 700; }
+    .box-head a { font-family: var(--font-mono); font-size: 10px; color: var(--accent); }
+    .box-head a:hover { text-decoration: underline; }
+    .stack { display: grid; gap: 16px; }
+    .project { border-radius: 12px; padding: 20px; border-color: rgba(255,255,255,.05); }
+    .project .row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .project .name { font-family: var(--font-display); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--accent); }
+    .project .stack-txt { margin-top: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .project p { margin-top: 12px; font-size: 14px; line-height: 1.7; color: var(--soft); }
+    .arrow { flex-shrink: 0; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,.1); font-weight: 700; transition: background .2s, color .2s; }
+    .arrow:hover { background: var(--accent); color: var(--bg); }
+    .right-col { display: flex; flex-direction: column; gap: 24px; }
+    .right-col .box.small:first-child { flex: 1; }
+    .todo { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,.05); background: rgba(255,255,255,.05); }
+    .todo .k { font-family: var(--font-mono); font-size: 12px; }
+    .todo .k.v { color: var(--violet); }
+    .todo .k.a { color: var(--accent); }
+    .todo .t { font-size: 14px; }
+    .todo .soon { font-family: var(--font-mono); font-size: 10px; color: var(--faint); }
+    .live { width: 8px; height: 8px; border-radius: 50%; background: #10b981; }
+    .contact h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; text-transform: uppercase; }
+    .contact p { margin-top: 8px; font-size: 14px; color: var(--muted); }
+    .contact .btn-row { margin-top: 24px; }
+    .contact .btn { font-size: 12px; font-weight: 700; }
+    .btn.outline { border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.1); }
+    .btn.outline:hover { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+
+    footer { margin-top: 96px; padding-top: 40px; padding-bottom: 40px; border-top: 1px solid rgba(255,255,255,.05); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+    footer p { font-family: var(--font-mono); font-size: 12px; color: var(--faint); }
+    footer .links { display: flex; gap: 24px; }
+    footer .links a { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); }
+    footer .links a:hover { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .hero, .proj-grid { grid-template-columns: 1fr; }
+      .container { padding: 40px 24px; }
+    }
+    @media (max-width: 700px) {
+      .cards-2 { grid-template-columns: 1fr; }
+      .card.wide { grid-column: auto; }
+      .nav-gh { display: none; }
+      section { margin-top: 72px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="grid-bg"></div>
+  </div>
+
+  <div class="container" id="top">
+
+    <nav class="glass-strong glow">
+      <div class="brand">
+        <div class="logo ring-grad">A</div>
+        <span>Adam</span>
+      </div>
+      <div class="nav-links">
+        <a href="#stages">Stages</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#veille">Veille</a>
+        <a href="#projets">Projets</a>
+      </div>
+      <div class="nav-right">
+        <a class="nav-gh" href="https://github.com/adam0-00" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn-small glass" href="../portfolio-code/CV_YAHYA_ADAM2.pdf" download>Mon CV</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="pill glass"><span class="dot"></span>BTS SIO — 2ᵉ année · Option SLAM</div>
+        <h1>Bonjour, moi c'est Adam.<br /><span class="text-grad">Développeur en formation.</span></h1>
+        <p class="intro">
+          Étudiant en 2ᵉ année de BTS SIO option <strong>SLAM</strong> au lycée Léonard de Vinci à Melun.
+          Je préfère le développement au réseau, mais mon stage m'a permis de toucher un peu aux deux.
+        </p>
+        <div class="btn-row">
+          <a class="btn primary ring-grad" href="../portfolio-code/CV_YAHYA_ADAM2.pdf" download>Télécharger mon CV</a>
+          <a class="btn ghost glass" href="https://github.com/adam0-00" target="_blank" rel="noreferrer">Profil GitHub <small>[01]</small></a>
+        </div>
+      </div>
+
+      <div class="terminal glass glow">
+        <div class="term-head">
+          <span>~/dev/profile.json</span>
+          <span class="lights"><span></span><span></span><span></span></span>
+        </div>
+        <div class="term-body">
+          <p class="cmd"><span>$</span> formation</p>
+          <p class="val">"BTS SIO — SLAM, 2e année"</p>
+          <p class="cmd"><span>$</span> github</p>
+          <p class="val v">"@adam0-00"</p>
+          <p class="cmd"><span>$</span> langages</p>
+          <div class="lang-icons">
+            <span class="lang-chip"><i class="devicon-html5-plain colored"></i>HTML</span>
+            <span class="lang-chip"><i class="devicon-php-plain colored"></i>PHP</span>
+            <span class="lang-chip"><i class="devicon-mysql-plain colored"></i>SQL</span>
+            <span class="lang-chip"><i class="devicon-python-plain colored"></i>Python</span>
+            <span class="lang-chip"><i class="devicon-java-plain colored"></i>Java</span>
+            <span class="lang-chip"><i class="devicon-kotlin-plain colored"></i>Kotlin</span>
+          </div>
+          <p class="cmd"><span>$</span> stack</p>
+          <p class="val v">["PDO", "Bootstrap"]</p>
+          <p class="cmd"><span>$</span> stage_1</p>
+          <p class="val warn">"Mairie de Moissy-Cramayel"</p>
+        </div>
+      </div>
+    </div>
+
+    <section id="stages">
+      <div class="sec-head border">
+        <h2>Expériences &amp; stages</h2>
+        <span class="tag">/ stages</span>
+      </div>
+
+      <div class="cards-2">
+        <article class="card glass">
+          <div class="card-top">
+            <span class="when">1re année · 18 mai → 28 juin</span>
+            <span class="badge">Terminé</span>
+          </div>
+          <h3>Assistant informatique</h3>
+          <p class="sub">Mairie de Moissy-Cramayel — service informatique</p>
+          <ul class="tasks">
+            <li>Configuration de tablettes MDM pour les nouveaux élus (élus en mars 2026)</li>
+            <li>Gestion des tickets d'assistance</li>
+            <li>Installation de sondes SNMP avec PRTG et alertes basées sur des requêtes SQL (Lansweeper)</li>
+            <li>Configuration de switchs réseau (dont un Zyxel d'occasion)</li>
+            <li>Dépannage réseau et téléphonie</li>
+            <li>Installation des PC, imprimantes et de la ligne téléphonique d'une nouvelle école</li>
+          </ul>
+          <a class="btn ghost glass" href="../portfolio-code/COMPTE_RENDU_STAGE1.pdf" target="_blank" rel="noreferrer" style="margin-top:16px; align-self:flex-start;">Voir le compte rendu de stage ↗</a>
+          <div class="tags"><span>PRTG</span><span>SNMP</span><span>Lansweeper</span><span>MDM</span><span>Zyxel</span></div>
+        </article>
+
+        <article class="card glass-strong">
+          <div class="card-top">
+            <span class="when accent">2e année</span>
+            <span class="ping"></span>
+          </div>
+          <h3>À venir</h3>
+          <p class="sub">Stage de 2e année</p>
+          <p class="desc">Cette partie sera complétée quand le stage de 2e année aura commencé.</p>
+          <div class="tags"><span>À compléter</span></div>
+        </article>
+
+        <article class="card glass wide">
+          <span class="when mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)">Avant le BTS</span>
+          <h3 style="margin-top:16px">Livraison &amp; logistique</h3>
+          <p class="sub">Livreur en véhicule léger · expérience chez Kuehne+Nagel</p>
+          <p class="desc">Un premier parcours dans la logistique, avant l'informatique : de la rigueur, de l'autonomie et le sens du contact avec les clients.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="parcours">
+      <div class="sec-head">
+        <h2>Parcours scolaire</h2>
+        <div class="line"></div>
+      </div>
+      <div class="timeline-box glass">
+        <div class="timeline">
+          <div class="step current">
+            <p class="date">2026 — 2027</p>
+            <h3>BTS SIO — 2ᵉ année</h3>
+            <p>Option SLAM (Solutions Logicielles et Applications Métiers) · Lycée Léonard de Vinci, Melun</p>
+          </div>
+          <div class="step">
+            <p class="date">2025 — 2026</p>
+            <h3>BTS SIO — 1ʳᵉ année</h3>
+            <p>Programmation PHP/MySQL, bases de données, réseaux. J'ai choisi le BTS plutôt qu'une licence maths-info : plus proche de chez moi, moins théorique et plus pratique. Option SLAM plutôt que SISR, parce que je suis plus à l'aise en développement qu'en réseau.</p>
+          </div>
+          <div class="step">
+            <p class="date">Quelques mois</p>
+            <h3>BUT Génie Mécanique et Productique</h3>
+            <p>IUT d'Évry · Réorientation après quelques mois vers l'informatique</p>
+          </div>
+          <div class="step">
+            <p class="date">Lycée</p>
+            <h3>Baccalauréat général</h3>
+            <p>Spécialités mathématiques et physique-chimie</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="veille">
+      <div class="sec-head">
+        <h2>Veille technologique</h2>
+        <div class="line"></div>
+      </div>
+      <div class="veille glass" style="text-align:center; padding:48px 24px;">
+        <p class="cat">Bientôt</p>
+        <h3 style="font-size:24px;">À venir</h3>
+        <p>Cette partie sera complétée prochainement.</p>
+      </div>
+    </section>
+
+    <section id="projets">
+      <div class="proj-grid">
+        <div class="box glass">
+          <div class="box-head">
+            <h2>Projets scolaires</h2>
+            <a href="https://github.com/adam0-00" target="_blank" rel="noreferrer">VOIR_TOUS_LES_REPOS</a>
+          </div>
+          <div class="stack">
+            <div class="project glass">
+              <div class="row">
+                <div>
+                  <p class="name">Chambord — gestion des salariés d'un hôtel</p>
+                  <p class="stack-txt">PHP / MySQL / PDO / Bootstrap</p>
+                  <p>Application complète pour gérer les salariés : ajout, affichage, modification et suppression (CRUD), connexion à la base avec PDO et pattern PRG pour éviter les doubles envois de formulaire.</p>
+                </div>
+                <a class="arrow" href="https://github.com/adam0-00/Ap_CHAMBORD" target="_blank" rel="noreferrer" aria-label="Voir le projet Chambord sur GitHub">↗</a>
+              </div>
+            </div>
+            <div class="project glass">
+              <p class="name">MovieDB — site de films</p>
+              <p class="stack-txt">PHP / API TMDB</p>
+              <p>Site web qui récupère les films grâce à l'API TMDB, avec des filtres par lettre, genre, acteur et pays d'origine.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-col">
+          <div class="box small glass">
+            <div class="box-head" style="margin-bottom:16px">
+              <h2 style="font-size:20px">Projets à venir</h2>
+              <span class="live"></span>
+            </div>
+            <div class="stack" style="gap:12px">
+              <div class="todo">
+                <div><p class="k v">SCOLAIRE</p><p class="t">Projets de 2e année</p></div>
+                <span class="soon">Bientôt</span>
+              </div>
+              <div class="todo">
+                <div><p class="k a">PERSO</p><p class="t">Projets personnels</p></div>
+                <span class="soon">Bientôt</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="box small glass-strong glow contact">
+            <h3>Me contacter</h3>
+            <p>Retrouvez mon CV et mes projets en ligne.</p>
+            <div class="btn-row">
+              <a class="btn primary ring-grad" href="CV_YAHYA_ADAM2.pdf" download>Télécharger le CV</a>
+              <a class="btn outline" href="https://github.com/adam0-00" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Adam — BTS SIO SLAM</p>
+      <div class="links">
+        <a href="https://github.com/adam0-00" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="CV_YAHYA_ADAM2.pdf" download>CV</a>
+        <a href="#top">Haut de page</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
